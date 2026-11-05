@@ -1,8 +1,13 @@
 const openBtn = document.getElementById("openModal");
 const modal = document.querySelector(".modal");
+const modalContent = document.querySelector(".modal-content");
 const closeBtn = document.querySelector(".close-modal");
 
-openBtn.addEventListener("click", function () {
+// Make sure the modal starts hidden when the page loads
+modal.classList.remove("show");
+
+openBtn.addEventListener("click", function (event) {
+  event.stopPropagation();
   modal.classList.add("show");
 });
 
@@ -10,8 +15,12 @@ closeBtn.addEventListener("click", function () {
   modal.classList.remove("show");
 });
 
-modal.addEventListener("click", function (event) {
-  if (event.target === modal) {
+// Close when clicking anywhere outside the modal content
+document.addEventListener("click", function (event) {
+  if (
+    modal.classList.contains("show") &&
+    !modalContent.contains(event.target)
+  ) {
     modal.classList.remove("show");
   }
 });
